@@ -1,0 +1,23 @@
+<launch>
+    <!-- Load the URDF into the robot_description parameter -->
+    <arg name="model" default="$(find simple_robot)/urdf/simple_robot.urdf"/>
+    <param name="robot_description" command="cat $(arg model)"/>
+
+    <!-- Load ROS control parameters -->
+    <rosparam file="$(find simple_robot)/config/simple_robot_control.yaml" command="load"/>
+
+    <!-- Launch the robot state publisher -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+
+    <!-- Launch the Gazebo simulator with the ROS interface -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch"/>
+
+    <!-- Spawn the robot model in Gazebo -->
+    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+          args="-urdf -model simple_robot -param robot_description"/>
+
+    <!-- Launch the controller manager with the specified configuration -->
+    <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+          output="screen" args="left_wheel_joint right_wheel_joint"/>
+</launch>
+

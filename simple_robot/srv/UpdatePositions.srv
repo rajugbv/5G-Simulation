@@ -1,0 +1,5 @@
+float64 shoulder_position
+float64 elbow_position
+---
+bool success  # Indicate if the update was successful
+

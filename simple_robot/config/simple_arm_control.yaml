@@ -1,0 +1,9 @@
+shoulder_joint:
+  type: effort_controllers/JointPositionController
+  joint: shoulder_joint
+  pid: {p: 100.0, i: 0.01, d: 10.0}
+elbow_joint:
+  type: effort_controllers/JointPositionController
+  joint: elbow_joint
+  pid: {p: 100.0, i: 0.01, d: 10.0}
+
